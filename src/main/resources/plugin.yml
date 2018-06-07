@@ -1,0 +1,15 @@
+name: MyFirstBukkitPlugin
+main: com.suchipi.myfirstbukkitplugin.MyFirstBukkitPlugin
+version: 1.0
+author: suchipi
+commands:
+   js:
+      description: Execute some JavaScript
+      usage: /js [script]
+      permission: myfirstbukkitplugin.commands.js
+      permission-message: You don't have permission to run this command.
+
+permissions:
+ myfirstbukkitplugin.commands.js:
+   description: Permission to use the /js command
+   default: op
