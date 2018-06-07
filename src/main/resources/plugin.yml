@@ -1,12 +1,12 @@
-name: MyFirstBukkitPlugin
-main: com.suchipi.myfirstbukkitplugin.MyFirstBukkitPlugin
+name: DirtPlugin
+main: com.suchipi.dirt.DirtPlugin
 version: 1.0
 author: suchipi
 commands:
    js:
       description: Execute some JavaScript
       usage: /js [script]
-      permission: myfirstbukkitplugin.commands.js
+      permission: dirt.commands.js
       permission-message: You don't have permission to run this command.
 
 permissions:
