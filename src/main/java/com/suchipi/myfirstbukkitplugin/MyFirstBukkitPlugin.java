@@ -3,34 +3,30 @@ package com.suchipi.myfirstbukkitplugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.ScriptableObject;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 @SuppressWarnings("unused")
 public final class MyFirstBukkitPlugin extends JavaPlugin {
-    Context context;
-    Scriptable scope;
-    Object jsPlugin;
+    ScriptEngine engine;
 
     @Override
     public void onEnable() {
-        context = Context.enter();
-        scope = context.initStandardObjects(null);
-        jsPlugin = Context.javaToJS(this, scope);
-        ScriptableObject.putProperty(scope, "plugin", jsPlugin);
+        System.setProperty("nashorn.args", "--language=es6");
+        engine = new ScriptEngineManager().getEngineByName("nashorn");
     }
 
     @Override
     public void onDisable() {
-        Context.exit();
+        engine = null;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         try {
-            Object result = context.evaluateString(scope, String.join(" ", args), "command", 1, null);
-            sender.sendMessage(Context.toString(result));
+            Object result = engine.eval(String.join(" ", args));
+            sender.sendMessage(String.valueOf(result));
         } catch (Exception error) {
             sender.sendMessage("Error: " + error.getMessage());
         }
